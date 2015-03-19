@@ -6,7 +6,7 @@
 #    By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/19 15:21:15 by mwilk             #+#    #+#              #
-#    Updated: 2015/03/19 15:31:49 by mwilk            ###   ########.fr        #
+#    Updated: 2015/03/19 16:31:12 by mwilk            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 NAME = ls
 
 SRCS_NAME = main.c\
+			utils.c\
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 
