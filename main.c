@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:27:49 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/19 18:09:17 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/20 17:08:45 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ int		main(int ac, char **av)
 	t_data	*d;
 
 	d = load_options(ac, av);
-	print(d);
 	ft_ls(d);
 	if (d)
-		ft_data_del(d);
+		data_del(d);
 	return (0);
 }

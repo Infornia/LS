@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 16:18:19 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/19 18:09:19 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/20 17:57:28 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,40 @@ void		data_del(t_data *d)
 	}
 	free(d);
 	d = NULL;
+}
+
+t_param		*ft_param_fill(t_param *param, t_stat *file_stat, t_data *d)
+{
+	(*param)->st_mode = file_stat.st_mode;
+	(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
+	(*param)->st_nlink = file_stat.st_nlink;
+	if (ft_strchr(d->opts, 'l'))
+	{
+		(*param)->user = getpwuid(file_stat.st_uid)->pw_name;
+		(*param)->group = getgrgid(file_stat.st_gid)->gr_name;
+		(*param)->st_size = file_stat.st_size;
+		(*param)->st_blocks = file_stat.st_blocks;
+		(*param)->st_rdev = file_stat.st_rdev;
+	}
+}
+
+t_param		*ft_param_new(t_data *d, char *path, char *name)
+{
+	t_param		*param;
+	t_stat		file_stat;
+	char		*tmp;
+	char		*tmp2;
+
+	if (!(param = (t_param *)malloc(sizeof(t_param))))
+		return (NULL);
+	param->name = ft_strdup(name);
+	tmp2 = ft_strjoin(path, "/");
+	tmp = ft_strjoin(tmp2, name);
+	free(tmp2);
+	if (stat(tmp, &file_stat) < 0)
+		perror(tmp);
+	else
+		ft_param_fill(&param, file_stat, d);
+	free(tmp);
+	return (param);
 }

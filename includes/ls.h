@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:38:14 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/19 20:11:30 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/20 17:59:56 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,13 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <dirent.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <grp.h>
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct timespec	t_timespec;
-
-typedef struct	s_avl
-{
-	void	*content;
-	size_t	content_size;
-	struct s_avl	right;
-	struct s_avl	left;
-}				t_avl;
 
 typedef struct	s_param
 {
@@ -56,10 +51,12 @@ t_data		*data_new(int nb);
 
 void	ft_ls(t_data *d);
 void	sort_dir(t_data *d, char *p);
-void	add_dir(t_data *d, char *path, char *name, t_avl **dir);
-void	add_file(t_data *d, char *path, char *name, t_avl **file);
-int		ft_dir_isvalid(t_avl *tmp, char *name);
+void	add_dir(t_data *d, char *path, char *name, t_tree **dir);
+void	add_file(t_data *d, char *path, char *name, t_tree **file);
+int		ft_dir_isvalid(t_tree *tmp, char *name);
 
+t_param	*ft_param_new(t_data *d, char *path, char *name);
+t_param	*ft_param_fill(t_param **param, t_stat *file_stat, t_data *d);
 void	data_del(t_data *d);
 void	print(t_data *d);
 

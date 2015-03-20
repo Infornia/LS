@@ -6,11 +6,13 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 18:37:56 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/19 20:10:40 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/20 17:57:32 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_dit_isvalid(t_avl *tmp, char *name)
+#include "ls.h"
+
+int			ft_dir_isvalid(t_tree *tmp, char *name)
 {
 	if (ft_get_file_type(((t_param *)(tmp->content))->st_mode) == 'd')
 	{
@@ -20,33 +22,33 @@ int			ft_dit_isvalid(t_avl *tmp, char *name)
 	return (0);
 }
 
-void		add_file(t_data *d, char *path, char *name, t_avl **file)
+void		add_file(t_data *d, char *path, char *name, t_tree **file)
 {
-	t_avl	*tmp;
+	t_tree	*tmp;
 
 	if ((ft_strchr(d->opts, 'a') && *name == '.') || *name != '.')
 	{
-		tmp = ft_avlnew(ft_param_new(data, path, name), sizeof(t_param));
+		tmp = ft_tree_new(ft_param_new(data, path, name), sizeof(t_param));
 		if (ft_strchr(d->opts, 't'))
-			*dir = ft_avladd(*dir, tmp, &ft_cmp_date);
+			*dir = ft_tree_add(*dir, tmp, &ft_cmp_date);
 		else
-			*dir = ft_avladd(*dir, tmp, &ft_cmp_name);
+			*dir = ft_tree_add(*dir, tmp, &ft_cmp_name);
 	}
 }
 
-void		add_dir(t_data *d, char *path, char *name, t_avl **dir)
+void		add_dir(t_data *d, char *path, char *name, t_tree **dir)
 {
-	t_avl	*tmp;
+	t_tree	*tmp;
 
-	tmp = ft_avlnew(ft_param_new(d, path name), sizeof(t_param));
+	tmp = ft_tree_new(ft_param_new(d, path name), sizeof(t_param));
 	if (ft_strchr(d->opts, 'R'))
 	{
 		if (ft_dir_isvalid(tmp, name))
 		{
 			if (ft_strchr(d->opts, 't'))
-				*dir = ft_avladd(*dir, tmp, &ft_cmp_date);
+				*dir = ft_tree_add(*dir, tmp, &ft_cmp_date);
 			else
-				*dir = ft_avladd(*dir, tmp, &ft_cmp_name);
+				*dir = ft_tree_add(*dir, tmp, &ft_cmp_name);
 		}
 	}
 }
@@ -55,8 +57,8 @@ void		sort_dir(t_data *d, char *p)
 {
 	t_dirent	*ep;
 	DIR				*dp;
-	t_avl		*dir;
-	t_avl		*file;
+	t_tree		*dir;
+	t_tree		*file;
 
 	dir = NULL;
 	file = NULL;
@@ -73,11 +75,11 @@ void		sort_dir(t_data *d, char *p)
 		perror(param);
 	print(d, file);
 	if (file)
-		ft_avldel(&file, &param_del);
+		ft_tree_del(&file, &param_del);
 	if (ft_strchr(d->opts, 'R'))
 		recursive(d, dir);
 	if (dir)
-		ft_avldel(&dir, &param_del);
+		ft_tree_del(&dir, &param_del);
 }
 
 void		ft_ls(t_data *d)
@@ -86,10 +88,10 @@ void		ft_ls(t_data *d)
 
 	i = 0;
 	if (d->nb_p == 0)
-		sort_d(d, ".");
+		sort_dir(d, ".");
 	else
 	{
 		while (i < d->nb_p)
-			sort_d(d, ft_strjoin(d->params[i++], "/"));
+			sort_dir(d, ft_strjoin(d->params[i++], "/"));
 	}
 }
