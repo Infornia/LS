@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_dat_param.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 16:18:19 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/20 17:57:28 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/22 17:44:06 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		data_del(t_data *d)
 	d = NULL;
 }
 
-t_param		*ft_param_fill(t_param *param, t_stat *file_stat, t_data *d)
+void	tt_param_fill(t_param **param, t_stat file_stat, t_data *d)
 {
 	(*param)->st_mode = file_stat.st_mode;
 	(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
@@ -55,7 +55,7 @@ t_param		*ft_param_fill(t_param *param, t_stat *file_stat, t_data *d)
 	}
 }
 
-t_param		*ft_param_new(t_data *d, char *path, char *name)
+t_param		*tt_param_new(t_data *d, char *path, char *name)
 {
 	t_param		*param;
 	t_stat		file_stat;
@@ -71,7 +71,20 @@ t_param		*ft_param_new(t_data *d, char *path, char *name)
 	if (stat(tmp, &file_stat) < 0)
 		perror(tmp);
 	else
-		ft_param_fill(&param, file_stat, d);
+		tt_param_fill(&param, file_stat, d);
 	free(tmp);
 	return (param);
+}
+
+void	tt_param_del(void *content, size_t content_size)
+{
+	t_param		*tmp;
+
+	(void)content_size;
+	tmp = (t_param *) content;
+	if (tmp)
+	{
+		ft_strdel(&tmp->name);
+		ft_memdel(&content);
+	}
 }

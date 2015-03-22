@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 18:37:56 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/20 17:57:32 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/22 18:04:16 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			ft_dir_isvalid(t_tree *tmp, char *name)
 {
-	if (ft_get_file_type(((t_param *)(tmp->content))->st_mode) == 'd')
+	if (tt_file_type(((t_param *)(tmp->content))->st_mode) == 'd')
 	{
 		if (ft_strcmp("..", name) != 0 && ft_strcmp(".", name))
 			return (1);
@@ -28,11 +28,11 @@ void		add_file(t_data *d, char *path, char *name, t_tree **file)
 
 	if ((ft_strchr(d->opts, 'a') && *name == '.') || *name != '.')
 	{
-		tmp = ft_tree_new(ft_param_new(data, path, name), sizeof(t_param));
+		tmp = ft_tree_new(tt_param_new(d, path, name), sizeof(t_param));
 		if (ft_strchr(d->opts, 't'))
-			*dir = ft_tree_add(*dir, tmp, &ft_cmp_date);
+			*file = ft_tree_add(*file, tmp, &(cmp_date));
 		else
-			*dir = ft_tree_add(*dir, tmp, &ft_cmp_name);
+			*file = ft_tree_add(*file, tmp, &(cmp_name));
 	}
 }
 
@@ -40,15 +40,15 @@ void		add_dir(t_data *d, char *path, char *name, t_tree **dir)
 {
 	t_tree	*tmp;
 
-	tmp = ft_tree_new(ft_param_new(d, path name), sizeof(t_param));
+	tmp = ft_tree_new(tt_param_new(d, path, name), sizeof(t_param));
 	if (ft_strchr(d->opts, 'R'))
 	{
 		if (ft_dir_isvalid(tmp, name))
 		{
 			if (ft_strchr(d->opts, 't'))
-				*dir = ft_tree_add(*dir, tmp, &ft_cmp_date);
+				*dir = ft_tree_add(*dir, tmp, &cmp_date);
 			else
-				*dir = ft_tree_add(*dir, tmp, &ft_cmp_name);
+				*dir = ft_tree_add(*dir, tmp, &cmp_name);
 		}
 	}
 }
@@ -62,24 +62,24 @@ void		sort_dir(t_data *d, char *p)
 
 	dir = NULL;
 	file = NULL;
-	if ((dp = opendir(param)))
+	if ((dp = opendir(p)))
 	{
 		while ((ep = readdir(dp)))
 		{
-			add_file(d, param, ep->d_name, &file);
-			add_dir(d, param, ep->d_name, &dir);
+			add_file(d, p, ep->d_name, &file);
+			add_dir(d, p, ep->d_name, &dir);
 		}
 		closedir(dp);
 	}
 	else
-		perror(param);
-	print(d, file);
+		perror(p);
+	ls_print(d, file);
 	if (file)
-		ft_tree_del(&file, &param_del);
+		ft_tree_del(&file, &tt_param_del);
 	if (ft_strchr(d->opts, 'R'))
-		recursive(d, dir);
+		tt_recursive(d, dir);
 	if (dir)
-		ft_tree_del(&dir, &param_del);
+		ft_tree_del(&dir, &tt_param_del);
 }
 
 void		ft_ls(t_data *d)

@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:38:14 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/20 17:59:56 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/22 18:43:10 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,32 @@ t_data	*load_options(int ac, char **av);
 t_data		*data_new(int nb);
 
 void	ft_ls(t_data *d);
+
 void	sort_dir(t_data *d, char *p);
 void	add_dir(t_data *d, char *path, char *name, t_tree **dir);
 void	add_file(t_data *d, char *path, char *name, t_tree **file);
 int		ft_dir_isvalid(t_tree *tmp, char *name);
 
-t_param	*ft_param_new(t_data *d, char *path, char *name);
-t_param	*ft_param_fill(t_param **param, t_stat *file_stat, t_data *d);
-void	data_del(t_data *d);
-void	print(t_data *d);
+t_param	*tt_param_new(t_data *d, char *path, char *name);
+void	tt_param_fill(t_param **param, t_stat file_stat, t_data *d);
+void	tt_param_del(void *content, size_t content_size);
 
+void	data_del(t_data *d);
+
+void	ls_print(t_data *d, t_tree *file);
+char	tt_file_type(mode_t mode);
+void	print_ls(t_tree *head, int len);
+void	print_rights(t_param *param);
+void	print_total(t_tree *head, int len);
+void		get_size(t_tree *head, int *size);
+void		len_linx_max(t_tree *head, int *len);
+void		len_user_max(t_tree *head, int *len);
+void		len_group_max(t_tree *head, int *len);
+void		len_size_max(t_tree *head, int *len);
+void	print_optr(t_tree *head, int len);
+
+
+void	tt_recursive(t_data *d, t_tree *head);
+int		cmp_name(void *p1, void *p2);
+int		cmp_date(void *p1, void *p2);
 #endif
