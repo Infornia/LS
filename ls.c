@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 18:37:56 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/22 18:04:16 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/22 20:45:03 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void		add_file(t_data *d, char *path, char *name, t_tree **file)
 
 	if ((ft_strchr(d->opts, 'a') && *name == '.') || *name != '.')
 	{
-		tmp = ft_tree_new(tt_param_new(d, path, name), sizeof(t_param));
+		tmp = tt_tree_new(tt_param_new(d, path, name), sizeof(t_param));
 		if (ft_strchr(d->opts, 't'))
-			*file = ft_tree_add(*file, tmp, &(cmp_date));
+			*file = tt_tree_add(*file, tmp, &(cmp_date));
 		else
-			*file = ft_tree_add(*file, tmp, &(cmp_name));
+			*file = tt_tree_add(*file, tmp, &(cmp_name));
 	}
 }
 
@@ -40,15 +40,15 @@ void		add_dir(t_data *d, char *path, char *name, t_tree **dir)
 {
 	t_tree	*tmp;
 
-	tmp = ft_tree_new(tt_param_new(d, path, name), sizeof(t_param));
+	tmp = tt_tree_new(tt_param_new(d, path, name), sizeof(t_param));
 	if (ft_strchr(d->opts, 'R'))
 	{
 		if (ft_dir_isvalid(tmp, name))
 		{
 			if (ft_strchr(d->opts, 't'))
-				*dir = ft_tree_add(*dir, tmp, &cmp_date);
+				*dir = tt_tree_add(*dir, tmp, &cmp_date);
 			else
-				*dir = ft_tree_add(*dir, tmp, &cmp_name);
+				*dir = tt_tree_add(*dir, tmp, &cmp_name);
 		}
 	}
 }
@@ -73,13 +73,13 @@ void		sort_dir(t_data *d, char *p)
 	}
 	else
 		perror(p);
-	ls_print(d, file);
+	ls_prints(d, file);
 	if (file)
-		ft_tree_del(&file, &tt_param_del);
+		tt_tree_del(&file, &tt_param_del);
 	if (ft_strchr(d->opts, 'R'))
 		tt_recursive(d, dir);
 	if (dir)
-		ft_tree_del(&dir, &tt_param_del);
+		tt_tree_del(&dir, &tt_param_del);
 }
 
 void		ft_ls(t_data *d)
