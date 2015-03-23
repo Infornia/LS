@@ -43,7 +43,7 @@ void		data_del(t_data *d)
 void	tt_param_fill(t_param **param, t_stat file_stat, t_data *d)
 {
 	(*param)->st_mode = file_stat.st_mode;
-	(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
+	//(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
 	(*param)->st_nlink = file_stat.st_nlink;
 	if (ft_strchr(d->opts, 'l'))
 	{

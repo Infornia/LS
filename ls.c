@@ -29,7 +29,7 @@ void		add_file(t_data *d, char *path, char *name, t_tree **file)
 	if ((ft_strchr(d->opts, 'a') && *name == '.') || *name != '.')
 	{
 		tmp = tt_tree_new(tt_param_new(d, path, name), sizeof(t_param));
-		if (ft_strchr(d->opts, 't'))
+		if (ft_strchr(d->opts, 't') != NULL)
 			*file = tt_tree_add(*file, tmp, &(cmp_date));
 		else
 			*file = tt_tree_add(*file, tmp, &(cmp_name));
@@ -45,7 +45,7 @@ void		add_dir(t_data *d, char *path, char *name, t_tree **dir)
 	{
 		if (ft_dir_isvalid(tmp, name))
 		{
-			if (ft_strchr(d->opts, 't'))
+			if (ft_strchr(d->opts, 't') != NULL)
 				*dir = tt_tree_add(*dir, tmp, &cmp_date);
 			else
 				*dir = tt_tree_add(*dir, tmp, &cmp_name);
