@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 18:37:56 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/22 20:45:03 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/30 17:41:25 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void		add_file(t_data *d, char *path, char *name, t_tree **file)
 	{
 		tmp = tt_tree_new(tt_param_new(d, path, name), sizeof(t_param));
 		if (ft_strchr(d->opts, 't') != NULL)
-			*file = tt_tree_add(*file, tmp, &(cmp_date));
+			*file = tt_tree_add(*file, tmp, &cmp_date);
 		else
-			*file = tt_tree_add(*file, tmp, &(cmp_name));
+			*file = tt_tree_add(*file, tmp, &cmp_name);
 	}
 }
 

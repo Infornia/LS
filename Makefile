@@ -6,12 +6,12 @@
 #    By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/19 15:21:15 by mwilk             #+#    #+#              #
-#    Updated: 2015/03/22 21:43:19 by mwilk            ###   ########.fr        #
+#    Updated: 2015/03/30 20:05:05 by mwilk            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = ls
+NAME = ft_ls
 
 SRCS_NAME = main.c\
 			ls_data_params.c\
@@ -21,6 +21,7 @@ SRCS_NAME = main.c\
 			ls_print_total.c \
 			ls_print_opt.c \
 			ls_print_opt_2.c \
+			ls_error.c\
 
 OBJS_NAME = $(SRCS_NAME:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 16:18:19 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/22 17:44:06 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/30 17:26:46 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		data_del(t_data *d)
 void	tt_param_fill(t_param **param, t_stat file_stat, t_data *d)
 {
 	(*param)->st_mode = file_stat.st_mode;
-	//(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
+	(*param)->tv_sec = file_stat.st_mtimespec.tv_sec;
 	(*param)->st_nlink = file_stat.st_nlink;
 	if (ft_strchr(d->opts, 'l'))
 	{
@@ -81,7 +81,7 @@ void	tt_param_del(void *content, size_t content_size)
 	t_param		*tmp;
 
 	(void)content_size;
-	tmp = (t_param *) content;
+	tmp = (t_param *)content;
 	if (tmp)
 	{
 		ft_strdel(&tmp->name);

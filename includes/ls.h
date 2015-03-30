@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:38:14 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/22 21:54:47 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/30 21:13:57 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LS_H
 
 #include "libft.h"
+#include "ls_error.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <dirent.h>

@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:27:49 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/20 17:08:45 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/03/30 21:21:10 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_data		*eval_option(char *s, t_data *d, int *opt)
 			}
 		}
 		else
-			ft_putstr("FUCKING ERROR");
+			ls_error(ILLEGALOPT, EOPT, s, 1);
 	}
 	return (d);
 }
