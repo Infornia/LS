@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:38:14 by mwilk             #+#    #+#             */
-/*   Updated: 2015/04/01 17:17:58 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/04/01 17:38:06 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_data
 {
 	char	**params;
 	int			nb_p;
-	char	opts[6];
+	char	opts[7];
 }				t_data;
 
 
