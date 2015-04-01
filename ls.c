@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 18:37:56 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/30 17:41:25 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/04/01 17:19:58 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		sort_dir(t_data *d, char *p)
 void		ft_ls(t_data *d)
 {
 	int		i;
+	t_stat	sts;
 
 	i = 0;
 	if (d->nb_p == 0)
@@ -92,6 +93,16 @@ void		ft_ls(t_data *d)
 	else
 	{
 		while (i < d->nb_p)
-			sort_dir(d, ft_strjoin(d->params[i++], "/"));
+		{
+			stat(d->params[i], &sts);
+			if (S_ISREG(sts.st_mode))
+			{
+				ft_putstr(d->params[i]);
+				ft_putstr("\n");
+			}
+			if (S_ISDIR(sts.st_mode))
+				sort_dir(d, ft_strjoin(d->params[i++], "/"));	
+			i++;
+		}
 	}
 }

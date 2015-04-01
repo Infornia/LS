@@ -6,7 +6,7 @@
 /*   By: mwilk <mwilk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/19 15:27:49 by mwilk             #+#    #+#             */
-/*   Updated: 2015/03/30 21:21:10 by mwilk            ###   ########.fr       */
+/*   Updated: 2015/04/01 17:17:49 by mwilk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data		*eval_option(char *s, t_data *d, int *opt)
 {
 	while (*(++s))
 	{
-		if (ft_strchr("Raltr", *s))
+		if (ft_strchr("Raltr1", *s))
 		{
 			if (ft_strchr(d->opts, *s) == NULL)
 			{
